@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Home of Hopes</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Fredoka', sans-serif;
+    }
+    body.homepage {
+      background: linear-gradient(rgba(255,255,255,0.8), rgba(255,255,255,0.8)),
+                  url('https://assets.promediateknologi.id/crop/0x0:0x0/0x0/webp/photo/indizone/2022/01/06/aPslDaV/diperingati-setiap-6-januari-ini-sejarah-hari-anak-yatim-korban-perang-sedunia24.jpg') no-repeat center center fixed;
+      background-size: cover;
+    }
+    nav {
+      background-color: #ffebf2;
+      padding: 15px;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    nav a {
+      margin: 0 10px;
+      text-decoration: none;
+      color: #e91e63;
+      font-weight: bold;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+    .hero {
+      height: 90vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 60px 20px;
+      margin: 60px auto;
+      max-width: 900px;
+      border-radius: 12px;
+    }
+    .hero h1 {
+      font-size: 4rem;
+      color: #e91e63;
+    }
+    .hero p {
+      font-size: 1.5rem;
+      color: #555;
+      margin-bottom: 30px;
+    }
+    .hero a.button {
+      padding: 14px 30px;
+      background-color: #e91e63;
+      color: white;
+      border-radius: 10px;
+      text-decoration: none;
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+    .hero a.button:hover {
+      background-color: #c2185b;
+    }
+    footer {
+      background-color: #4a148c;
+      color: white;
+      text-align: center;
+      padding: 10px;
+      font-size: 0.9rem;
+      height: 30px;
+    }
+  </style>
+</head>
+<body class="homepage">
+  <nav>
+    <a href="about.html">About</a>
+    <a href="find-orphanage.html">Find Orphanage</a>
+    <a href="fundraiser.html">Fundraiser</a>
+    <a href="health.html">Health & Hygiene</a>
+    <a href="education.html">Education & Skills</a>
+    <a href="contact.html">Contact Us</a>
+    <a href="view-submissions.html">View Submissions</a>
+  </nav>
+
+  <div class="hero">
+    <h1>Home of Hopes</h1>
+    <p>Lighting Up Little Lives with Love</p>
+    <a href="about.html" class="button">Explore Our Website</a>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 Home of Hopes | Built with ❤️ for every child</p>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>  
+  <meta charset="UTF-8" />  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />  
+  <title>Health & Hygiene - Home of Hopes</title>  
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      background-color: #ffebf2;
+      padding: 15px;
+    }
+    nav a {
+      text-decoration: none;
+      color: #e91e63;
+      font-weight: bold;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+    section {
+      padding: 60px 20px;
+      max-width: 900px;
+      margin: 30px auto;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    .hygiene-box {
+      background: linear-gradient(135deg, #fbc2eb, #a6c1ee);
+      padding: 30px;
+      border-radius: 12px;
+      color: #333;
+    }
+    .chk {
+      margin-right: 10px;
+      accent-color: #e91e63;
+    }
+    button {
+      background-color: #e91e63;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #c2185b;
+    }
+    .result {
+      font-weight: bold;
+      margin-top: 15px;
+      color: #ff5722;
+    }
+    .game-container {
+      background-color: #e3f2fd;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      margin-top: 30px;
+    }
+    canvas {
+      background: #bbdefb;
+      border-radius: 10px;
+      display: block;
+      margin: 10px auto;
+    }
+    #score-timer-container {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+    #timer {
+      font-size: 18px;
+      font-weight: bold;
+      color: #333;
+    }
+    #score-board {
+      font-size: 20px;
+      font-weight: bold;
+      color: #1b5e20;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="find-orphanage.html">Find Orphanage</a>
+    <a href="fundraiser.html">Fundraiser</a>
+    <a href="health.html">Health & Hygiene</a>
+    <a href="education.html">Education & Skills</a>
+    <a href="contact.html">Contact Us</a>
+    <a href="view-submissions.html">View Submissions</a>
+  </nav>
+
+  <section>
+    <h2>🩺 Health & Hygiene</h2>
+    <div class="hygiene-box">
+      <h3>🧼 Am I Hygienic Today?</h3>
+      <label><input type="checkbox" class="chk"> Brushed teeth 🪥</label><br>
+      <label><input type="checkbox" class="chk"> Washed hands 👐</label><br>
+      <label><input type="checkbox" class="chk"> Wore clean clothes 👕</label><br>
+      <label><input type="checkbox" class="chk"> Trimmed nails ✂️</label><br>
+      <label><input type="checkbox" class="chk"> Drank clean water 💧</label><br>
+      <button onclick="checkHygiene()">Check</button>
+      <div class="result" id="result"></div>
+
+      <h3 style="margin-top: 30px;">🧠 Hygiene Quiz</h3>
+      <p>How many seconds should you wash your hands?</p>
+      <button onclick="checkQuiz(10)">10</button>
+      <button onclick="checkQuiz(20)">20</button>
+      <button onclick="checkQuiz(30)">30</button>
+      <div class="result" id="quiz-result"></div>
+
+      <h3 style="margin-top: 30px;">✍️ Take the Pledge</h3>
+      <input type="text" id="name" placeholder="Your Name" style="padding:10px; border-radius:6px; width:60%;">
+      <button onclick="submitPledge()">Submit</button>
+      <div class="result" id="pledge-result"></div>
+
+      <div class="game-container">
+        <h3>🎮 Let's Play a Game!</h3>
+        <p>Collect as many healthy items as you can in 30 seconds!</p>
+        <button onclick="startGame()">Start Game</button>
+        <div id="score-timer-container">
+          <div id="score-board">Score: 0</div>
+          <div id="timer">Time: 30s</div>
+        </div>
+        <canvas id="gameCanvas" width="400" height="300"></canvas>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Home of Hopes | Built with ❤️ for every child</p>
+  </footer>
+
+  <script>
+    let timerInt;
+    function checkHygiene() {
+      let count = 0;
+      document.querySelectorAll(".chk").forEach(c => { if (c.checked) count++; });
+      document.getElementById("result").textContent = count >= 4 ? "You're a Hygiene Hero! 🌟" : "Keep going! 💪";
+    }
+    function checkQuiz(val) {
+      document.getElementById("quiz-result").textContent = val === 20 ? "Correct! ✅" : "Oops! Try 20 seconds.";
+    }
+    function submitPledge() {
+      const name = document.getElementById("name").value;
+      document.getElementById("pledge-result").textContent = name ? `Thank you, ${name}! You’re a Hygiene Ambassador 🧼✨` : "Please enter your name!";
+    }
+
+    const canvas = document.getElementById("gameCanvas");
+    const ctx = canvas.getContext("2d");
+    const items = ["🍎", "🥦", "🥕", "🧼", "🧴", "🪥"];
+    const badItems = ["🍬", "🍩"];
+    const basketImg = "🧺";
+    let player = { x: 160, y: 260, w: 100, h: 40 };
+    let fallingItems = [];
+    let score = 0;
+    let interval;
+    let timeLeft = 30;
+
+    function drawPlayer() {
+      ctx.font = "44px serif";
+      ctx.fillText(basketImg, player.x, player.y);
+    }
+
+    function drawItem(item) {
+      ctx.font = "28px serif";
+      ctx.fillText(item.char, item.x, item.y);
+    }
+
+    function updateGame() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      drawPlayer();
+
+      fallingItems.forEach((item, index) => {
+        item.y += 5.5;
+        drawItem(item);
+        if (
+          item.y > player.y - 10 &&
+          item.x > player.x &&
+          item.x < player.x + player.w
+        ) {
+          if (badItems.includes(item.char)) {
+            score = Math.max(0, score - 1);
+          } else {
+            score++;
+          }
+          fallingItems.splice(index, 1);
+        }
+      });
+
+      if (Math.random() < 0.08) {
+        const char = Math.random() < 0.8 ? items[Math.floor(Math.random() * items.length)] : badItems[Math.floor(Math.random() * badItems.length)];
+        fallingItems.push({ char, x: Math.random() * 370, y: 0 });
+      }
+
+      document.getElementById("score-board").textContent = `Score: ${score}`;
+    }
+
+    function updateTimer() {
+      timeLeft--;
+      document.getElementById("timer").textContent = `Time: ${timeLeft}s`;
+      if (timeLeft <= 0) {
+        clearInterval(interval);
+        clearInterval(timerInt);
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+      }
+    }
+
+    function startGame() {
+      score = 0;
+      fallingItems = [];
+      timeLeft = 30;
+      clearInterval(interval);
+      clearInterval(timerInt);
+      interval = setInterval(updateGame, 50);
+      timerInt = setInterval(updateTimer, 1000);
+    }
+
+    document.addEventListener("keydown", e => {
+      if (e.key === "ArrowLeft" && player.x > 0) player.x -= 20;
+      if (e.key === "ArrowRight" && player.x < canvas.width - player.w) player.x += 20;
+    });
+  </script>
+</body>
+</html>

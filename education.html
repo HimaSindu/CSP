@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Education & Skills - Home of Hopes</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    section {
+      padding: 60px 20px;
+      max-width: 900px;
+      margin: 30px auto;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    input, textarea, select, button {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-family: inherit;
+      font-size: 1rem;
+    }
+    button {
+      background-color: #e91e63;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    button:hover {
+      background-color: #c2185b;
+    }
+    .confirmation {
+      display: none;
+      text-align: center;
+      background-color: #d4edda;
+      color: #155724;
+      padding: 15px;
+      border-radius: 8px;
+      font-weight: bold;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="find-orphanage.html">Find Orphanage</a>
+    <a href="fundraiser.html">Fundraiser</a>
+    <a href="health.html">Health & Hygiene</a>
+    <a href="education.html">Education & Skills</a>
+    <a href="contact.html">Contact Us</a>
+    <a href="view-submissions.html">View Submissions</a>
+  </nav>
+
+  <section>
+    <h2>🎓 Education & Skills</h2>
+    <form id="educationForm">
+      <input type="text" placeholder="Your Name" required />
+      <input type="email" placeholder="Email" required />
+      <input type="text" placeholder="Books or materials to donate" />
+      <select required>
+        <option disabled selected>Select a Skill Activity</option>
+        <option>Art Workshop</option>
+        <option>Music/Dance</option>
+        <option>Games & Sports</option>
+        <option>English Tutoring</option>
+      </select>
+      <textarea placeholder="Describe your idea or suggest a date"></textarea>
+      <button type="submit">Submit</button>
+    </form>
+    <div class="confirmation" id="confirmationMsg">
+      ✅ Thank you! Your submission has been received.
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Home of Hopes | Built with ❤️ for every child</p>
+  </footer>
+
+  <script>
+    const form = document.getElementById("educationForm");
+    const confirmation = document.getElementById("confirmationMsg");
+
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+      confirmation.style.display = "block";
+      form.reset();
+      setTimeout(() => {
+        confirmation.style.display = "none";
+      }, 3000);
+    });
+  </script>
+</body>
+</html>

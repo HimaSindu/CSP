@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Find Orphanage - Home of Hopes</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      background-color: #ffebf2;
+      padding: 15px;
+    }
+    nav a {
+      text-decoration: none;
+      color: #e91e63;
+      font-weight: bold;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+    .orphanage-btn {
+      padding: 12px 20px;
+      margin: 10px;
+      background-color: #e91e63;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="find-orphanage.html">Find Orphanage</a>
+    <a href="fundraiser.html">Fundraiser</a>
+    <a href="health.html">Health & Hygiene</a>
+    <a href="education.html">Education & Skills</a>
+    <a href="contact.html">Contact Us</a>
+    <a href="view-submissions.html">View Submissions</a>
+  </nav>
+
+  <section id="find-orphanage">
+    <h2>Find Orphanage</h2>
+    <input type="text" id="searchInput" placeholder="Search orphanage by name..." style="padding:12px; border-radius:8px; border:1px solid #ccc; width:100%; margin-bottom:20px;" onkeyup="searchOrphanage()">
+
+    <div id="orphanageList"></div>
+    <div id="orphanageDetails" style="margin-top:30px;"></div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Home of Hopes | Built with ❤️ for every child</p>
+  </footer>
+
+  <script>
+    const orphanages = [
+      {
+        name: "Little Hearts Home",
+        address: "Vishakapatnam, Andhra Pradesh",
+        contact: "+91 91234 56789",
+        needs: ["Books", "Water Bottles", "Raincoats"],
+        timings: ["10:00 AM - 12:00 PM", "4:00 PM - 6:00 PM"]
+      },
+      {
+        name: "Hope Shelter",
+        address: "Vishakapatnam, Andhra Pradesh",
+        contact: "+91 99887 77665",
+        needs: ["Blankets", "School Bags", "Toiletries"],
+        timings: ["9:00 AM - 11:00 AM", "3:00 PM - 5:00 PM"]
+      },
+      {
+        name: "Sunshine Nest",
+        address: "Vishakapatnam, Andhra Pradesh",
+        contact: "+91 98765 43210",
+        needs: ["Stationery", "First Aid Kits", "Art Supplies"],
+        timings: ["11:00 AM - 1:00 PM", "5:00 PM - 7:00 PM"]
+      },
+      {
+        name: "Bright Future Home",
+        address: "Vishakapatnam, Andhra Pradesh",
+        contact: "+91 77654 32109",
+        needs: ["Toys", "Shoes", "Hygiene Kits"],
+        timings: ["8:00 AM - 10:00 AM", "6:00 PM - 8:00 PM"]
+      },
+      {
+        name: "Safe Haven",
+        address: "Vishakapatnam, Andhra Pradesh",
+        contact: "+91 99887 22334",
+        needs: ["Groceries", "Bookshelves", "Clothes"],
+        timings: ["7:00 AM - 9:00 AM", "2:00 PM - 4:00 PM"]
+      }
+    ];
+
+    function searchOrphanage() {
+      const input = document.getElementById("searchInput").value.toLowerCase();
+      const listDiv = document.getElementById("orphanageList");
+      const detailsDiv = document.getElementById("orphanageDetails");
+      listDiv.innerHTML = '';
+      detailsDiv.innerHTML = '';
+
+      const filtered = orphanages.filter(o => o.name.toLowerCase().includes(input));
+
+      if (filtered.length === 0) {
+        listDiv.innerHTML = "<p>No orphanages found.</p>";
+        return;
+      }
+
+      filtered.forEach((o) => {
+        const btn = document.createElement("button");
+        btn.textContent = o.name;
+        btn.className = "orphanage-btn";
+        btn.onclick = () => showOrphanageDetails(o);
+        listDiv.appendChild(btn);
+      });
+    }
+
+    function showOrphanageDetails(orphanage) {
+      const detailsDiv = document.getElementById("orphanageDetails");
+      detailsDiv.innerHTML = `
+        <h3 style="color:#e91e63;">${orphanage.name}</h3>
+        <p><strong>Address:</strong> ${orphanage.address}</p>
+        <p><strong>Contact:</strong> ${orphanage.contact}</p>
+        <p><strong>Needs:</strong></p>
+        <ul>${orphanage.needs.map(item => `<li>${item}</li>`).join('')}</ul>
+        <p><strong>Available Time Slots:</strong></p>
+        <ul>${orphanage.timings.map(time => `<li>${time}</li>`).join('')}</ul>
+      `;
+    }
+  </script>
+</body>
+</html>
